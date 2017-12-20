@@ -170,17 +170,109 @@ ggplot(email50, aes(x =num_char , y =exclaim_mess , color = factor(spam))) +
   geom_point()
 ```
 
-
-
-
-
-
-
-
-
-
 ## Study types and cautionary tales
 In this chapter, you will learn about observational studies and experiments, scope of inference, and Simpson's paradox.
+
+
+### Identify study type
+
+A study is designed to evaluate whether people read text faster in Arial or Helvetica font. A group of volunteers who agreed to be a part of the study are randomly assigned to two groups: one where they read some text in Arial, and another where they read the same text in Helvetica. At the end, average reading speeds from the two groups are compared.
+
+What type of study is this?   Experiment
+Identify the type of study
+
+Next, let's take a look at data from a different study on country characteristics. You'll load the data first and view it, then you'll be asked to identify the type of study. Remember, an experiment requires random assignment.
+
+### INSTRUCTIONS
+
+Load the gapminder data. This dataset comes from the gapminder R package, which has already been loaded for you.
+View the variables in the dataset with glimpse().
+If these data come from an observational study, assign "observational" to the type_of_study variable. If experimental, assign "experimental".
+
+```{r}
+### Pre-code
+#install.packages("gapminder")
+
+library("gapminder")
+
+# Load data
+data(gapminder)
+
+# Glimpse data
+glimpse(gapminder)
+
+# Identify type of study
+type_of_study <- "observational"
+
+```
+
+### Random sampling or random assignment?
+
+One of the early studies linking smoking and lung cancer compared patients who are already hospitalized with lung cancer to similar patients without lung cancer (hospitalized for other reasons), and recorded whether each patient smoked. Then, proportions of smokers for patients with and without lung cancer were compared.
+
+Does this study employ random sampling and/or random assignment?
+
+Neither random sampling nor random assignment
+
+### Identify the scope of inference of study
+
+Volunteers were recruited to participate in a study where they were asked to type 40 bits of trivia—for example, "an ostrich’s eye is bigger than its brain"—into a computer. A randomly selected half of these subjects were told the information would be saved in the computer; the other half were told the items they typed would be erased.
+
+Then, the subjects were asked to remember these bits of trivia, and the number of bits of trivia each subject could correctly recall were recorded. It was found that the subjects were significantly more likely to remember information if they thought they would not be able to find it later.
+
+The results of the study ___ be generalized to all people and a causal link between believing information is stored and memory ___ be inferred based on these results.
+
+Answer ---- cannot, can
+
+### Number of males and females admitted
+
+In order to calculate the number of males and females admitted, we will introduce two new functions: count() from the dplyr package and spread() from the tidyr package.
+
+In one step, count() allows you to group the data by certain variables (in this case, admission status and gender) and then counts the number of observations in each category. These counts are available under a new variable called n.
+
+spread() simply reorganizes the output across columns based on a key-value pair, where a pair contains a key that explains what the information describes and a value that contains the actual information. spread() takes the name of the dataset as its first argument, the name of the key column as its second argument, and the name of the value column as its third argument, all specified without quotation marks.
+
+### INSTRUCTIONS
+
+Use the ucb_admit dataset (which is already pre-loaded) and the count() function to determine the total number of males and females admitted. Assign the result to ucb_counts.
+Print ucb_counts to the console.
+Then, use the spread() function to spread the output across columns based on admission status (key) and n (value).
+```{r}
+## pre-code
+install.packages("tidyr")
+
+url <- "http://s3.amazonaws.com/assets.datacamp.com/production/course_2331/datasets/ucb_admit.RData"
+
+download.file(url, "ucb_admit.RData")
+
+load(ucb_admit.RData)
+
+
+```
+
+```{r}
+
+
+
+
+# Load packages
+library(dplyr)
+library(tidyr)
+
+# Count number of male and female applicants admitted
+ucb_counts <- ucb_admit %>%
+  count(Admit, Gender)
+
+# View result
+ucb_counts
+  
+# Spread the output across columns
+ucb_counts %>%
+  spread(Admit, n)
+```
+
+
+
 
 
 
